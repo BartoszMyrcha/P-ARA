@@ -12,7 +12,7 @@ public class Neck : MonoBehaviour {
         GameObject plane = GameObject.CreatePrimitive(PrimitiveType.Plane);
 
         // Load the Image from somewhere on disk
-        var filePath = "C:/Users/Bartosz/Documents/para/Assets/Resources/Textures/bg.jpg";
+        var filePath = "Assets/Resources/Textures/bg.jpg";
         if (System.IO.File.Exists(filePath))
         {
             // Image file exists - load bytes into texture

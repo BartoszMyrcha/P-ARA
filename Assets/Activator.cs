@@ -31,13 +31,15 @@ public class Activator : MonoBehaviour {
 
     void OnTriggerEnter(Collider col)
     {
+        Debug.Log("Object entered!");
         active = true;
         if (col.gameObject.tag == "Note")
             note = col.gameObject;
     }
 
-    private void OnTriggerExit(Collider col)
+    void OnTriggerExit(Collider col)
     {
+        Debug.Log("Object exited!");
         active = false;
     }
 
