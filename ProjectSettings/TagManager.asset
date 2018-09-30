@@ -4,8 +4,10 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Activator
+  - Reset
+  - NextNote
   - Note
+  - Activator
   layers:
   - Default
   - TransparentFX

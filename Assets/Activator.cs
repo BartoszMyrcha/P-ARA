@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Activator : MonoBehaviour {
+public class Activator : MonoBehaviour
+{
 
     Renderer cr;
     public KeyCode key;
@@ -26,28 +27,45 @@ public class Activator : MonoBehaviour {
                 AddPoint();
                 active = false;
             }
+            else
+            {
+                SubPoint();
+            }
         }
     }
 
     void OnTriggerEnter(Collider col)
     {
-        Debug.Log("Object entered!");
+        Debug.Log("OnTriggerEnter");
         active = true;
         if (col.gameObject.tag == "Note")
+        {
             note = col.gameObject;
+        }
+
     }
 
     void OnTriggerExit(Collider col)
     {
-        Debug.Log("Object exited!");
+        Debug.Log("OnTriggerExit");
+        SubPoint();
         active = false;
     }
 
     void AddPoint()
     {
         PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") + 1);
+        Debug.Log("Score: " + PlayerPrefs.GetInt("Points"));
     }
 
+    void SubPoint()
+    {
+        if (PlayerPrefs.GetInt("Points") > 0)
+        {
+            PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") - 1);
+        }
+        Debug.Log("Score: " + PlayerPrefs.GetInt("Points"));
+    }
     IEnumerator Pressed()
     {
         Color old = cr.material.color;
