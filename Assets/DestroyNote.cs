@@ -24,6 +24,11 @@ public class DestroyNote : MonoBehaviour
         if (collider.gameObject.CompareTag("Reset"))
         {
             Destroy(note);
+            if (PlayerPrefs.GetInt("Points") > 0)
+            {
+                PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") - 1);
+            }
+            Debug.Log("Score: " + PlayerPrefs.GetInt("Points"));
         }
     }
 }

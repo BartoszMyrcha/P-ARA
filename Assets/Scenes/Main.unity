@@ -122,9 +122,9 @@ GameObject:
   m_Component:
   - component: {fileID: 107867969}
   - component: {fileID: 107867968}
-  - component: {fileID: 107867967}
   - component: {fileID: 107867966}
   - component: {fileID: 107867965}
+  - component: {fileID: 107867967}
   m_Layer: 0
   m_Name: Activator_4
   m_TagString: Activator
@@ -178,18 +178,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &107867967
-SphereCollider:
+--- !u!58 &107867967
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 107867964}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &107867968
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -204,8 +207,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 107867964}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.7, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 4.7, y: -4.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 8
@@ -281,11 +284,11 @@ Prefab:
     m_Modifications:
     - target: {fileID: 4108271164956852, guid: 8138b8f5cd3ad4441881ab7cd345d1b2, type: 2}
       propertyPath: m_LocalPosition.x
-      value: 0.82
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4108271164956852, guid: 8138b8f5cd3ad4441881ab7cd345d1b2, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 3.16
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 4108271164956852, guid: 8138b8f5cd3ad4441881ab7cd345d1b2, type: 2}
       propertyPath: m_LocalPosition.z
@@ -311,6 +314,12 @@ Prefab:
       propertyPath: m_RootOrder
       value: 4
       objectReference: {fileID: 0}
+    - target: {fileID: 114284942034309120, guid: 8138b8f5cd3ad4441881ab7cd345d1b2,
+        type: 2}
+      propertyPath: emptyNote
+      value: 
+      objectReference: {fileID: 1168623032769928, guid: 759d92c10604acb489db4298e48eaef5,
+        type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8138b8f5cd3ad4441881ab7cd345d1b2, type: 2}
   m_IsPrefabParent: 0
@@ -489,9 +498,9 @@ GameObject:
   m_Component:
   - component: {fileID: 606917025}
   - component: {fileID: 606917024}
-  - component: {fileID: 606917023}
   - component: {fileID: 606917022}
   - component: {fileID: 606917021}
+  - component: {fileID: 606917023}
   m_Layer: 0
   m_Name: Activator_1
   m_TagString: Activator
@@ -545,18 +554,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &606917023
-SphereCollider:
+--- !u!58 &606917023
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 606917020}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &606917024
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -571,8 +583,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 606917020}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.37, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -7.37, y: -4.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 5
@@ -685,9 +697,9 @@ GameObject:
   m_Component:
   - component: {fileID: 1717201000}
   - component: {fileID: 1717200999}
-  - component: {fileID: 1717200998}
   - component: {fileID: 1717200997}
   - component: {fileID: 1717200996}
+  - component: {fileID: 1717200998}
   m_Layer: 0
   m_Name: Activator_3
   m_TagString: Activator
@@ -741,18 +753,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &1717200998
-SphereCollider:
+--- !u!58 &1717200998
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1717200995}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &1717200999
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -767,8 +782,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1717200995}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.9, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: 0.9, y: -4.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 7
@@ -782,9 +797,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2041905706}
   - component: {fileID: 2041905705}
-  - component: {fileID: 2041905704}
   - component: {fileID: 2041905703}
   - component: {fileID: 2041905702}
+  - component: {fileID: 2041905704}
   m_Layer: 0
   m_Name: Activator_2
   m_TagString: Activator
@@ -838,18 +853,21 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!135 &2041905704
-SphereCollider:
+--- !u!58 &2041905704
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2041905701}
+  m_Enabled: 1
+  m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!33 &2041905705
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -864,8 +882,8 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2041905701}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.1, y: -5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalPosition: {x: -3.1, y: -4.5, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 6

@@ -8,6 +8,8 @@ using System.Text;
 public class GenerateNote : MonoBehaviour {
 
     [SerializeField]
+    GameObject emptyNote;
+    [SerializeField]
     GameObject noteOne;
     [SerializeField]
     GameObject noteTwo;
@@ -17,28 +19,32 @@ public class GenerateNote : MonoBehaviour {
     GameObject noteFour;
     [SerializeField]
     GameObject noteGenerator;
+    [SerializeField]
+    GameObject nextNoteTrigger;
 
     string[] file_content;
-    string song_name = "song1";
+    string song_name = "Eye-of-the-Tiger_v3";
     public static int[] notes;
     public static int bps;
     public static int note_counter;
 
     int currentNote = 0;
 
-    //int[] notes = { 4, 1, 4, 3, 2, 2, 2, 2, 1, 1, 2, 3, 4, 1};
-
     // Use this for initialization
     void Start () {
 
         file_content = Load_song("songs/" + song_name + ".txt");
 
-        //This worked in VB:
         notes = Array.ConvertAll<string, int>(file_content[0].Split(' '), int.Parse);
         bps = Int32.Parse(file_content[1]);
 
+        // new Vector3(0, 3 - bps / 120, 0);
+
         switch (notes[0])
         {
+            case 0:
+                Instantiate(emptyNote);
+                break;
             case 1: 
                 Instantiate(noteOne);
                 break;
@@ -63,11 +69,15 @@ public class GenerateNote : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.CompareTag("Note"))
+        if (collider.gameObject.CompareTag("Note") || collider.gameObject.CompareTag("emptyNote"))
         {
             if (notes.Length <= currentNote)
             {
                 Destroy(noteGenerator);
+            }
+            else if (notes[currentNote] == 0)
+            {
+                Instantiate(emptyNote);
             }
             else if (notes[currentNote] == 1)
             {
@@ -85,7 +95,7 @@ public class GenerateNote : MonoBehaviour {
             {
                 Instantiate(noteFour);
             }
-            Debug.Log(currentNote);
+            //Debug.Log(currentNote);
             currentNote++;
         }
     }
