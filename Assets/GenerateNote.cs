@@ -42,8 +42,10 @@ public class GenerateNote : MonoBehaviour {
 
         nextNoteTrigger = GameObject.FindGameObjectsWithTag("NextNote")[0];
 
-        float posDiff = -0.034f*bpm + 5.9844f;
-        Vector3 noteTriggerVector = new Vector3(0, 7 - posDiff, 0);
+        //float posDiff = -0.034f*bpm + 5.9844f;
+        float posDiff = 248f / bpm;
+        //float posDiff = 0.0004f * bpm * bpm - 0.1042f * bpm + 8.9774f;
+        Vector3 noteTriggerVector = new Vector3(0, 6.3f - posDiff, 0);
         Debug.Log(noteTriggerVector);
         nextNoteTrigger.transform.position = noteTriggerVector;
         stopwatch.Start();
