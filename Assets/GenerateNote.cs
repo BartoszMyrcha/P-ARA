@@ -25,8 +25,10 @@ public class GenerateNote : MonoBehaviour {
     string[] file_content;
     string song_name = "Eye-of-the-Tiger_v3";
     public static int[] notes;
-    public static int bps;
+    public static float bpm;
     public static int note_counter;
+    float[] time = new float[100];
+    System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
     int currentNote = 0;
 
@@ -36,9 +38,15 @@ public class GenerateNote : MonoBehaviour {
         file_content = Load_song("songs/" + song_name + ".txt");
 
         notes = Array.ConvertAll<string, int>(file_content[0].Split(' '), int.Parse);
-        bps = Int32.Parse(file_content[1]);
+        bpm = Int32.Parse(file_content[1]);
 
-        // new Vector3(0, 3 - bps / 120, 0);
+        nextNoteTrigger = GameObject.FindGameObjectsWithTag("NextNote")[0];
+
+        float posDiff = -0.034f*bpm + 5.9844f;
+        Vector3 noteTriggerVector = new Vector3(0, 7 - posDiff, 0);
+        Debug.Log(noteTriggerVector);
+        nextNoteTrigger.transform.position = noteTriggerVector;
+        stopwatch.Start();
 
         switch (notes[0])
         {
@@ -71,6 +79,9 @@ public class GenerateNote : MonoBehaviour {
     {
         if (collider.gameObject.CompareTag("Note") || collider.gameObject.CompareTag("emptyNote"))
         {
+            time[currentNote] = stopwatch.ElapsedMilliseconds;
+            if (currentNote > 2) Debug.Log(time[currentNote] - time[currentNote - 1]);
+
             if (notes.Length <= currentNote)
             {
                 Destroy(noteGenerator);

@@ -24,11 +24,14 @@ public class DestroyNote : MonoBehaviour
         if (collider.gameObject.CompareTag("Reset"))
         {
             Destroy(note);
-            if (PlayerPrefs.GetInt("Points") > 0)
+            if (note.tag == "Note")
             {
-                PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") - 1);
+                if (PlayerPrefs.GetInt("Points") > 0)
+                {
+                    PlayerPrefs.SetInt("Points", PlayerPrefs.GetInt("Points") - 1);
+                }
+                Debug.Log("Score: " + PlayerPrefs.GetInt("Points"));
             }
-            Debug.Log("Score: " + PlayerPrefs.GetInt("Points"));
         }
     }
 }
