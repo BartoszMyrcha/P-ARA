@@ -21,13 +21,17 @@ public class GenerateNote : MonoBehaviour {
     GameObject noteGenerator;
     [SerializeField]
     GameObject nextNoteTrigger;
+    [SerializeField]
+    AudioSource song_player;
 
     string[] file_content;
-    string song_name = "Eye-of-the-Tiger_v3";
+    string song_name = "Eye-of-the-Tiger";
     public static int[] notes;
     public static float bpm;
     public static int note_counter;
     float[] time = new float[100];
+    AudioClip song;
+
     System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
 
     int currentNote = 0;
@@ -36,6 +40,8 @@ public class GenerateNote : MonoBehaviour {
     void Start () {
 
         file_content = Load_song("songs/" + song_name + ".txt");
+
+        song = Resources.Load("songs/" + song_name + ".mp3") as AudioClip;
 
         notes = Array.ConvertAll<string, int>(file_content[0].Split(' '), int.Parse);
         bpm = Int32.Parse(file_content[1]);
@@ -49,6 +55,9 @@ public class GenerateNote : MonoBehaviour {
         Debug.Log(noteTriggerVector);
         nextNoteTrigger.transform.position = noteTriggerVector;
         stopwatch.Start();
+
+        song_player.clip = song;
+        song_player.Play();
 
         switch (notes[0])
         {
