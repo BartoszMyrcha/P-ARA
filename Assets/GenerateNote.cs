@@ -25,6 +25,7 @@ public class GenerateNote : MonoBehaviour {
     public static float[] notes_rythm;
     float note_time;
     public static float bpm;
+    float song_delay;
     public static int note_counter;
     AudioClip song;
     AudioSource song_player;
@@ -49,16 +50,12 @@ public class GenerateNote : MonoBehaviour {
             notes_rythm[i] = float.Parse(temp[1]);
         }
         bpm = Int32.Parse(file_content[1]);
-
+        song_delay = float.Parse(file_content[2]);
+  
         song_player = gameObject.AddComponent<AudioSource>();
-
-        Debug.Log("Reading resource: " + song_name);
         song = Resources.Load<AudioClip>(song_name);
-
-        Debug.Log((song== null) ? "song is null" : "song is not null");
-
         song_player.clip = song;
-        song_player.PlayDelayed(2);
+        song_player.PlayDelayed(0.001f*song_delay);
 
         // Generate 1st note
         
@@ -98,9 +95,8 @@ public class GenerateNote : MonoBehaviour {
 
     void Generate()
     {
-        if (currentNote >= notes_and_rythm.Length - 1)
+        if (currentNote >= notes_and_rythm.Length)
         {
-            Debug.Log("End of notes.");
             play_enabled = false;
         }
         else if (notes[currentNote] == 0)
@@ -123,15 +119,18 @@ public class GenerateNote : MonoBehaviour {
         {
             Instantiate(noteFour);
         }
-        note_time = notes_rythm[currentNote] * 60 / bpm;
-        currentNote++;
+        if (play_enabled)
+        {
+            note_time = notes_rythm[currentNote] * 60 / bpm;
+            currentNote++;
+        }
     }
 
     public string[] Load_song(string fileName)
     {
         try
         {
-            string[] file = new string[2];
+            string[] file = new string[3];
             string line;
             StreamReader theReader = new StreamReader(fileName, Encoding.Default);
             using (theReader)
