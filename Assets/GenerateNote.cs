@@ -38,8 +38,6 @@ public class GenerateNote : MonoBehaviour {
 
         file_content = Load_song("Assets/songs/" + song_name + ".txt");
 
-        song = Resources.Load<AudioClip>("Assets/songs/" + song_name + ".mp3");
-
         notes_and_rythm = file_content[0].Split(' ');
         notes = new int[notes_and_rythm.Length];
         notes_rythm = new float[notes_and_rythm.Length];
@@ -52,10 +50,15 @@ public class GenerateNote : MonoBehaviour {
         }
         bpm = Int32.Parse(file_content[1]);
 
-        song_player = this.GetComponent<AudioSource>();
+        song_player = gameObject.AddComponent<AudioSource>();
+
+        Debug.Log("Reading resource: " + song_name);
+        song = Resources.Load<AudioClip>(song_name);
+
+        Debug.Log((song== null) ? "song is null" : "song is not null");
 
         song_player.clip = song;
-        song_player.Play();
+        song_player.PlayDelayed(2);
 
         // Generate 1st note
         
