@@ -8,6 +8,7 @@ TagManager:
   - NextNote
   - Note
   - Activator
+  - emptyNote
   layers:
   - Default
   - TransparentFX

@@ -78,11 +78,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f73925e8fca2aca4eb69a31cd015cc3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  emptyNote: {fileID: 1168623032769928, guid: 759d92c10604acb489db4298e48eaef5, type: 2}
   noteOne: {fileID: 1168623032769928, guid: 198b2dfb601760b47a0fff722357ece2, type: 2}
   noteTwo: {fileID: 1038613844337790, guid: 531b3f8f7d8f3154e832ab31a1d1a44a, type: 2}
   noteThree: {fileID: 1879934948922416, guid: e46b6f267ceb1844d9c19e5f8c3acc55, type: 2}
   noteFour: {fileID: 1337220022813362, guid: c51862d660196e54385a8c297e528edb, type: 2}
   noteGenerator: {fileID: 1904620484843386}
+  nextNoteTrigger: {fileID: 0}
 --- !u!212 &212943794767492578
 SpriteRenderer:
   m_ObjectHideFlags: 1
@@ -96,7 +98,6 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
-  m_RenderingLayerMask: 4294967295
   m_Materials:
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:

@@ -8,6 +8,8 @@ using System.Text;
 public class GenerateNote : MonoBehaviour {
 
     [SerializeField]
+    GameObject emptyNote;
+    [SerializeField]
     GameObject noteOne;
     [SerializeField]
     GameObject noteTwo;
@@ -15,30 +17,53 @@ public class GenerateNote : MonoBehaviour {
     GameObject noteThree;
     [SerializeField]
     GameObject noteFour;
-    [SerializeField]
-    GameObject noteGenerator;
 
     string[] file_content;
-    string song_name = "song1";
+    string song_name = "Eye-of-the-Tiger";
+    public static string[] notes_and_rythm;
     public static int[] notes;
-    public static int bps;
+    public static float[] notes_rythm;
+    float note_time;
+    public static float bpm;
+    float song_delay;
     public static int note_counter;
+    AudioClip song;
+    AudioSource song_player;
+    float timeDiff;
+    static int currentNote = 0;
+    public static bool play_enabled = false;
 
-    int currentNote = 0;
-
-    //int[] notes = { 4, 1, 4, 3, 2, 2, 2, 2, 1, 1, 2, 3, 4, 1};
-
-    // Use this for initialization
     void Start () {
 
-        file_content = Load_song("songs/" + song_name + ".txt");
+        string[] temp;
 
-        //This worked in VB:
-        notes = Array.ConvertAll<string, int>(file_content[0].Split(' '), int.Parse);
-        bps = Int32.Parse(file_content[1]);
+        file_content = Load_song("Assets/songs/" + song_name + ".txt");
 
+        notes_and_rythm = file_content[0].Split(' ');
+        notes = new int[notes_and_rythm.Length];
+        notes_rythm = new float[notes_and_rythm.Length];
+
+        for (int i = 0; i<notes_and_rythm.Length; i++)
+        {
+            temp = notes_and_rythm[i].Split(';');
+            notes[i] = int.Parse(temp[0]);
+            notes_rythm[i] = float.Parse(temp[1]);
+        }
+        bpm = Int32.Parse(file_content[1]);
+        song_delay = float.Parse(file_content[2]);
+  
+        song_player = gameObject.AddComponent<AudioSource>();
+        song = Resources.Load<AudioClip>(song_name);
+        song_player.clip = song;
+        song_player.PlayDelayed(0.001f*song_delay);
+
+        // Generate 1st note
+        
         switch (notes[0])
         {
+            case 0:
+                Instantiate(emptyNote);
+                break;
             case 1: 
                 Instantiate(noteOne);
                 break;
@@ -52,40 +77,51 @@ public class GenerateNote : MonoBehaviour {
                 Instantiate(noteFour);
                 break;
         }
+        note_time = notes_rythm[currentNote] * 60 / bpm;
         currentNote++;
+        play_enabled = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        timeDiff += Time.deltaTime;
+        if (timeDiff >= note_time && play_enabled)
+        {
+            timeDiff = 0;
+            Generate();
+        }
         
 	}
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void Generate()
     {
-        if (collider.gameObject.CompareTag("Note"))
+        if (currentNote >= notes_and_rythm.Length)
         {
-            if (notes.Length <= currentNote)
-            {
-                Destroy(noteGenerator);
-            }
-            else if (notes[currentNote] == 1)
-            {
-                Instantiate(noteOne);
-            }
-            else if(notes[currentNote] == 2)
-            {
-                Instantiate(noteTwo);
-            }
-            else if (notes[currentNote] == 3)
-            {
-                Instantiate(noteThree);
-            }
-            else if (notes[currentNote] == 4)
-            {
-                Instantiate(noteFour);
-            }
-            Debug.Log(currentNote);
+            play_enabled = false;
+        }
+        else if (notes[currentNote] == 0)
+        {
+            Instantiate(emptyNote);
+        }
+        else if (notes[currentNote] == 1)
+        {
+            Instantiate(noteOne);
+        }
+        else if(notes[currentNote] == 2)
+        {
+            Instantiate(noteTwo);
+        }
+        else if (notes[currentNote] == 3)
+        {
+            Instantiate(noteThree);
+        }
+        else if (notes[currentNote] == 4)
+        {
+            Instantiate(noteFour);
+        }
+        if (play_enabled)
+        {
+            note_time = notes_rythm[currentNote] * 60 / bpm;
             currentNote++;
         }
     }
@@ -94,7 +130,7 @@ public class GenerateNote : MonoBehaviour {
     {
         try
         {
-            string[] file = new string[2];
+            string[] file = new string[3];
             string line;
             StreamReader theReader = new StreamReader(fileName, Encoding.Default);
             using (theReader)

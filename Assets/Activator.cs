@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Activator : MonoBehaviour
@@ -34,21 +33,18 @@ public class Activator : MonoBehaviour
         }
     }
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter2D(Collider2D col)
     {
-        Debug.Log("OnTriggerEnter");
-        active = true;
         if (col.gameObject.tag == "Note")
         {
+            active = true;
             note = col.gameObject;
         }
 
     }
 
-    void OnTriggerExit(Collider col)
+    void OnTriggerExit2D(Collider2D col)
     {
-        Debug.Log("OnTriggerExit");
-        SubPoint();
         active = false;
     }
 
