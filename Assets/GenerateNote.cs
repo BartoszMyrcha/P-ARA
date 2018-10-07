@@ -17,48 +17,48 @@ public class GenerateNote : MonoBehaviour {
     GameObject noteThree;
     [SerializeField]
     GameObject noteFour;
-    [SerializeField]
-    GameObject noteGenerator;
-    [SerializeField]
-    GameObject nextNoteTrigger;
-    [SerializeField]
-    AudioSource song_player;
 
     string[] file_content;
     string song_name = "Eye-of-the-Tiger";
+    public static string[] notes_and_rythm;
     public static int[] notes;
+    public static float[] notes_rythm;
+    float note_time;
     public static float bpm;
     public static int note_counter;
-    float[] time = new float[100];
     AudioClip song;
+    AudioSource song_player;
+    float timeDiff;
+    static int currentNote = 0;
+    public static bool play_enabled = false;
 
-    System.Diagnostics.Stopwatch stopwatch = new System.Diagnostics.Stopwatch();
-
-    int currentNote = 0;
-
-    // Use this for initialization
     void Start () {
 
-        file_content = Load_song("songs/" + song_name + ".txt");
+        string[] temp;
 
-        song = Resources.Load("songs/" + song_name + ".mp3") as AudioClip;
+        file_content = Load_song("Assets/songs/" + song_name + ".txt");
 
-        notes = Array.ConvertAll<string, int>(file_content[0].Split(' '), int.Parse);
+        song = Resources.Load<AudioClip>("Assets/songs/" + song_name + ".mp3");
+
+        notes_and_rythm = file_content[0].Split(' ');
+        notes = new int[notes_and_rythm.Length];
+        notes_rythm = new float[notes_and_rythm.Length];
+
+        for (int i = 0; i<notes_and_rythm.Length; i++)
+        {
+            temp = notes_and_rythm[i].Split(';');
+            notes[i] = int.Parse(temp[0]);
+            notes_rythm[i] = float.Parse(temp[1]);
+        }
         bpm = Int32.Parse(file_content[1]);
 
-        nextNoteTrigger = GameObject.FindGameObjectsWithTag("NextNote")[0];
-
-        //float posDiff = -0.034f*bpm + 5.9844f;
-        float posDiff = 248f / bpm;
-        //float posDiff = 0.0004f * bpm * bpm - 0.1042f * bpm + 8.9774f;
-        Vector3 noteTriggerVector = new Vector3(0, 6.3f - posDiff, 0);
-        Debug.Log(noteTriggerVector);
-        nextNoteTrigger.transform.position = noteTriggerVector;
-        stopwatch.Start();
+        song_player = this.GetComponent<AudioSource>();
 
         song_player.clip = song;
         song_player.Play();
 
+        // Generate 1st note
+        
         switch (notes[0])
         {
             case 0:
@@ -77,49 +77,51 @@ public class GenerateNote : MonoBehaviour {
                 Instantiate(noteFour);
                 break;
         }
+        note_time = notes_rythm[currentNote] * 60 / bpm;
         currentNote++;
+        play_enabled = true;
     }
 	
 	// Update is called once per frame
 	void Update () {
-		
+        timeDiff += Time.deltaTime;
+        if (timeDiff >= note_time && play_enabled)
+        {
+            timeDiff = 0;
+            Generate();
+        }
         
 	}
 
-    void OnTriggerEnter2D(Collider2D collider)
+    void Generate()
     {
-        if (collider.gameObject.CompareTag("Note") || collider.gameObject.CompareTag("emptyNote"))
+        if (currentNote >= notes_and_rythm.Length - 1)
         {
-            time[currentNote] = stopwatch.ElapsedMilliseconds;
-            if (currentNote > 2) Debug.Log(time[currentNote] - time[currentNote - 1]);
-
-            if (notes.Length <= currentNote)
-            {
-                Destroy(noteGenerator);
-            }
-            else if (notes[currentNote] == 0)
-            {
-                Instantiate(emptyNote);
-            }
-            else if (notes[currentNote] == 1)
-            {
-                Instantiate(noteOne);
-            }
-            else if(notes[currentNote] == 2)
-            {
-                Instantiate(noteTwo);
-            }
-            else if (notes[currentNote] == 3)
-            {
-                Instantiate(noteThree);
-            }
-            else if (notes[currentNote] == 4)
-            {
-                Instantiate(noteFour);
-            }
-            //Debug.Log(currentNote);
-            currentNote++;
+            Debug.Log("End of notes.");
+            play_enabled = false;
         }
+        else if (notes[currentNote] == 0)
+        {
+            Instantiate(emptyNote);
+        }
+        else if (notes[currentNote] == 1)
+        {
+            Instantiate(noteOne);
+        }
+        else if(notes[currentNote] == 2)
+        {
+            Instantiate(noteTwo);
+        }
+        else if (notes[currentNote] == 3)
+        {
+            Instantiate(noteThree);
+        }
+        else if (notes[currentNote] == 4)
+        {
+            Instantiate(noteFour);
+        }
+        note_time = notes_rythm[currentNote] * 60 / bpm;
+        currentNote++;
     }
 
     public string[] Load_song(string fileName)
